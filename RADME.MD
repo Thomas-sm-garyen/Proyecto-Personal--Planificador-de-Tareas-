@@ -7,3 +7,5 @@ Como proyecto personal estamos creando un planificador de tareas, por el momento
 
 ### Figma: https://www.figma.com/design/1ckoVDiVAcvbNyQcPXhcWD/Untitled?node-id=1-2&t=Ny2OmnXZn7VhYw5T-1
 
+### Deploy: https://thomas-sm-garyen.github.io/Proyecto-Personal--Planificador-de-Tareas-/
+
