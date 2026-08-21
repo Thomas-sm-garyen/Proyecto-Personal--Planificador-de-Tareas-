@@ -22,3 +22,6 @@ function validFormFieldInput() {
 
   return task;
 }
+
+const taskManager =  new TaskManager();
+console.log(taskManager.tasks);

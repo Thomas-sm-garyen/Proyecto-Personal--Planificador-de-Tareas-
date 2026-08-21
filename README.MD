@@ -1,4 +1,4 @@
-# Planificador de tareas
+ñ# Planificador de tareas
 
 ## Sprint 1
 Como proyecto personal estamos creando un planificador de tareas, por el momento tengo hecho en mi html el diseño con bootstrap y los campos requeridos para agregar una tarea u objetivo. Siguiendo los parametros podemos introducir titulo, descripcion, fecha y categoria, ademas tenemos un boton para agregarla. Tambien esta la opcion de confirmar las tareas ya realizadas. En una proxima entrega implementare que las tareas quedan ser guardadas y sean visibles en el planificador, tambien que se puedan borrar.

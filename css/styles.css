@@ -1,0 +1,129 @@
+/* ==========================================
+   1. CONFIGURACIÓN GENERAL (BODY Y FONDO)
+   ========================================== */
+html, body {
+  background-color: #121212 !important; /* Negro mate / Gris muy oscuro */
+  color: #e2e8f0;                       /* Texto general en blanco suave */
+  min-height: 100vh;                     /* Cubre el 100% de la altura de la pantalla */
+  margin: 0;
+  padding: 0;
+}
+
+/* ==========================================
+   2. TÍTULOS Y TIPOGRAFÍA (MORADO NEÓN)
+   ========================================== */
+.text-purple, 
+.bg-purple-main,
+h1, h2, h3, h4, 
+legend, 
+.card-title, 
+.form-label {
+  color: #e0aaff !important;
+  text-shadow: 
+    0 0 5px #c77dff,
+    0 0 10px #7b2cbf,
+    0 0 20px #7b2cbf !important;
+  font-weight: 600;
+}
+
+/* Header superior (si aplica) */
+.navbar, .jumbotron {
+  background-color: #7c3aed !important;
+  color: white !important;
+}
+
+/* Badge de "pendientes" */
+.badge-outline {
+  border: 1px solid #bb86fc;
+  color: #bb86fc;
+}
+
+/* ==========================================
+   3. CONTENEDORES Y TARJETAS (CARDS & FORM)
+   ========================================== */
+.card, 
+.list-group {
+  background-color: #1e293b !important; /* Gris oscuro para contenedores */
+  border-color: #334155 !important;
+}
+
+.form-control, .form-select {
+  background-color: #2d3748 !important; /* Fondo de inputs */
+  border: 1px solid #4a5568 !important;
+  color: #e2e8f0 !important;
+}
+
+.form-control:focus, .form-select:focus {
+  background-color: #1e293b !important;
+  border-color: #bb86fc !important; /* Borde morado al enfocar */
+  box-shadow: 0 0 0 0.2rem rgba(187, 134, 252, 0.25);
+}
+
+/* ==========================================
+   4. ESTILOS DE TAREAS (TARJETAS Y ESTADOS)
+   ========================================== */
+/* Tarea Pendiente (Tus colores aplicados) */
+.list-group-item {
+  background-color: #1b3a7757 !important; /* Fondo azul semitransparente personalizado */
+  border: 1px solid #334155 !important;
+  border-radius: 25px !important;           /* Bordes redondeados de 25px */
+  margin-bottom: 10px;                       /* Separación entre tareas */
+  transition: all 0.25s ease;
+}
+
+/* Texto de tarea pendiente */
+.list-group-item strong {
+  color: #f1f5f9;
+}
+
+.list-group-item .text-muted {
+  color: #94a3b8 !important;
+}
+
+/* Tarea Completada (Verde Suave) */
+.list-group-item:has(.form-check-input:checked) {
+  background-color: #d1fae5 !important; /* Verde menta suave */
+  border-color: #a7f3d0 !important;
+}
+
+.list-group-item:has(.form-check-input:checked) strong {
+  text-decoration: line-through;
+  color: #15803d; /* Texto verde oscuro */
+}
+
+.list-group-item:has(.form-check-input:checked) .text-muted {
+  color: #166534 !important;
+}
+
+/* ==========================================
+   5. BOTÓN DE AGREGAR TAREA (NEÓN)
+   ========================================== */
+#btnAggTarea {
+  background-color: #1e293b !important; /* Fondo oscuro para resaltar la luz neón */
+  border: 1px solid #c77dff !important;
+  border-radius: 8px;
+  font-weight: 600;
+  color: #e0aaff !important;
+  
+  /* Efecto Neón: Texto y borde brillante */
+  text-shadow: 
+    0 0 5px #c77dff,
+    0 0 10px #7b2cbf !important;
+  box-shadow: 
+    0 0 8px rgba(199, 125, 255, 0.4),
+    inset 0 0 8px rgba(199, 125, 255, 0.2) !important;
+    
+  transition: all 0.3s ease;
+}
+
+#btnAggTarea:hover {
+  background-color: #7b2cbf !important; /* Llena el fondo al pasar el mouse */
+  color: #ffffff !important;
+  border-color: #e0aaff !important;
+  
+  /* Resplandor más intenso en hover */
+  box-shadow: 
+    0 0 15px #7b2cbf,
+    0 0 25px rgba(199, 125, 255, 0.8) !important;
+  text-shadow: 0 0 8px #ffffff !important;
+}
