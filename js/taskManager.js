@@ -1,5 +1,18 @@
 class TaskManager {
-    constructor(){
-        this.tasks = [];
-    }
+  constructor(currentId = 0) {
+    this.tasks = [];
+    this.currentId = currentId;
+  }
+
+  addTask(name, description, dueDate) {
+    this.currentId++;
+
+    this.tasks.push({
+      id: this.currentId,
+      name: name,
+      description: description,
+      dueDate: dueDate,
+      status: 'PORHACER'
+    });
+  }
 }
