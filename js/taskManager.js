@@ -15,4 +15,19 @@ class TaskManager {
       status: 'PORHACER'
     });
   }
+
+
+  deleteTask(taskId) {
+      const newTasks = [];
+
+      for (let task of this.tasks) {
+          if (task.id !== taskId) {
+              newTasks.push(task);
+         }
+      }
+    this.tasks = newTasks;
+  } 
+
+  
 }
+
