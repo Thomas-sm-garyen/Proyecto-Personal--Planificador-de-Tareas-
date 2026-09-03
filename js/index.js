@@ -1,12 +1,17 @@
-// Inicializamos TaskManager (sin usar require)
+// Inicializamos TaskManager
 const taskManager = new TaskManager();
 
-// Selectores del DOM coincidiendo con el HTML
+// Cargar y renderizar tareas guardadas en localStorage
+taskManager.load();
+taskManager.render();
+
+// Selectores del DOM
 const taskForm = document.querySelector('#taskForm');
 const tareaInput = document.querySelector('#nombreTarea');
 const descripcionInput = document.querySelector('#tareaDescripcion');
 const fechaInput = document.querySelector('#date');
 const categoriaInput = document.querySelector('#tareaCatetegoria');
+const tasksList = document.querySelector('#tasksList');
 
 // Función de validación
 function validFormFieldInput() {
@@ -15,7 +20,6 @@ function validFormFieldInput() {
   const fecha = fechaInput.value.trim();
   const categoria = categoriaInput.value.trim();
 
-  // Comprobar que los campos requeridos no estén vacíos
   if (!titulo || !fecha) {
     alert('Por favor completa los campos obligatorios.');
     return null;
@@ -40,9 +44,30 @@ if (taskForm) {
       formData.fecha
     );
 
-    console.log('Tareas guardadas en memoria:', taskManager.tasks);
+    // Guardar en localStorage y actualizar la vista
+    taskManager.save();
+    taskManager.render();
 
     // Limpiamos el formulario
     taskForm.reset();
+  });
+}
+
+// PASO 3: EventListener del botón Eliminar
+if (tasksList) {
+  tasksList.addEventListener('click', (event) => {
+    const deleteButton = event.target.closest('.delete-button');
+
+    if (deleteButton) {
+      const parentTask = deleteButton.closest('[data-task-id]');
+
+      if (parentTask) {
+        const taskId = Number(parentTask.dataset.taskId);
+
+        taskManager.deleteTask(taskId);
+        taskManager.save();
+        taskManager.render();
+      }
+    }
   });
 }

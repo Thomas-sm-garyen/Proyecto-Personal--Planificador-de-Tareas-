@@ -27,7 +27,7 @@
     <div class="row g-4">
 
       <!-- FORMULARIO -->
-      <section class="col-12 col-md-5 col-lg-4" >
+      <section class="col-12 col-md-5 col-lg-4">
         <div class="card shadow-none h-100 bg-dark-card border-secondary-subtle">
           <div class="card-header bg-dark-card border-bottom border-secondary-subtle">
             <h2 class="h5 card-title m-0 text-purple">Formulario</h2>
@@ -40,17 +40,17 @@
               </div>
 
               <div class="mb-3">
-                <label for="taskDescription" class="form-label">Descripción</label>
+                <label for="tareaDescripcion" class="form-label">Descripción</label>
                 <textarea class="form-control" id="tareaDescripcion" rows="3" placeholder="Detalles..."></textarea>
               </div>
 
               <div class="mb-3">
-                <label for="dueDate" class="form-label">Fecha de entrega</label>
+                <label for="date" class="form-label">Fecha de entrega</label>
                 <input type="date" class="form-control" id="date" required>
               </div>
 
               <div class="mb-3">
-                <label for="taskCategory" class="form-label">Categoría</label>
+                <label for="tareaCatetegoria" class="form-label">Categoría</label>
                 <select class="form-select" id="tareaCatetegoria">
                   <option selected value="personal">Personal</option>
                   <option value="trabajo">Trabajo</option>
@@ -74,10 +74,11 @@
             <span class="badge bg-secondary">5 pendientes</span>
           </div>
           <div class="card-body">
-            <ul class="list-group list-group-flush">
+            <!-- Se agregó el id="tasksList" -->
+            <ul class="list-group list-group-flush" id="tasksList">
 
               <!-- task1 -->
-              <li class="list-group-item d-flex align-items-center justify-content-between py-3">
+              <li class="list-group-item d-flex align-items-center justify-content-between py-3" data-task-id="1">
                 <div class="form-check d-flex align-items-center gap-2">
                   <input class="form-check-input mt-0" type="checkbox" id="task1">
                   <label class="form-check-label mb-0" for="task1">
@@ -85,68 +86,66 @@
                     <div class="text-muted small">Responsive y mejorar diseño</div>
                   </label>
                 </div>
-                <button class="btn btn-outline-danger btn-sm border-0" title="Eliminar">
+                <button class="btn btn-outline-danger btn-sm border-0 delete-button" title="Eliminar">
                   <i class="bi bi-trash"></i>
                 </button>
               </li>
 
               <!-- task 2 -->
-              <li class="list-group-item d-flex align-items-center justify-content-between py-3">
+              <li class="list-group-item d-flex align-items-center justify-content-between py-3" data-task-id="2">
                 <div class="form-check d-flex align-items-center gap-2">
                   <input class="form-check-input mt-0" type="checkbox" id="task2">
                   <label class="form-check-label mb-0" for="task2">
                     <strong>Entender como funciona Intellij</strong>
-                    <div class="text-muted small">Aprender como haceer commits desde el entorno de desarrollo</div>
+                    <div class="text-muted small">Aprender como hacer commits desde el entorno de desarrollo</div>
                   </label>
                 </div>
-                <button class="btn btn-outline-danger btn-sm border-0" title="Eliminar">
+                <button class="btn btn-outline-danger btn-sm border-0 delete-button" title="Eliminar">
                   <i class="bi bi-trash"></i>
                 </button>
               </li>
 
               <!-- task 3 -->
-              <li class="list-group-item d-flex align-items-center justify-content-between py-3">
+              <li class="list-group-item d-flex align-items-center justify-content-between py-3" data-task-id="3">
                 <div class="form-check d-flex align-items-center gap-2">
-                  <input class="form-check-input mt-0" type="checkbox" id="task3" >
+                  <input class="form-check-input mt-0" type="checkbox" id="task3">
                   <label class="form-check-label mb-0" for="task3">
                     <strong>Practicar sintaxis en Java</strong>
                     <div class="text-muted small">Entender la forma en la que Java funciona, mas que todo la sintaxis</div>
                   </label>
                 </div>
-                <button class="btn btn-outline-danger btn-sm border-0" title="Eliminar">
+                <button class="btn btn-outline-danger btn-sm border-0 delete-button" title="Eliminar">
                   <i class="bi bi-trash"></i>
                 </button>
               </li>
 
               <!-- task 4 -->
-              <li class="list-group-item d-flex align-items-center justify-content-between py-3">
+              <li class="list-group-item d-flex align-items-center justify-content-between py-3" data-task-id="4">
                 <div class="form-check d-flex align-items-center gap-2">
-                  <input class="form-check-input mt-0" type="checkbox" id="task4" >
+                  <input class="form-check-input mt-0" type="checkbox" id="task4">
                   <label class="form-check-label mb-0" for="task4">
                     <strong>Trabajar en el proyecto personal</strong>
                     <div class="text-muted small">Ir poco a poco desarrollando el proyecto personal para añadir al portafolio</div>
                   </label>
                 </div>
-                <button class="btn btn-outline-danger btn-sm border-0" title="Eliminar">
+                <button class="btn btn-outline-danger btn-sm border-0 delete-button" title="Eliminar">
                   <i class="bi bi-trash"></i>
                 </button>
               </li>
 
               <!-- task 5-->
-              <li class="list-group-item d-flex align-items-center justify-content-between py-3">
+              <li class="list-group-item d-flex align-items-center justify-content-between py-3" data-task-id="5">
                 <div class="form-check d-flex align-items-center gap-2">
-                  <input class="form-check-input mt-0" type="checkbox" id="task5" >
+                  <input class="form-check-input mt-0" type="checkbox" id="task5">
                   <label class="form-check-label mb-0" for="task5">
                     <strong>Mejorar el Figma del portafolio</strong>
                     <div class="text-muted small">Optimazar detalles del portafolio en el figma para desarrollarlo en codigo</div>
                   </label>
                 </div>
-                <button class="btn btn-outline-danger btn-sm border-0" title="Eliminar">
+                <button class="btn btn-outline-danger btn-sm border-0 delete-button" title="Eliminar">
                   <i class="bi bi-trash"></i>
                 </button>
               </li>
-
-              
 
             </ul>
           </div>
