@@ -1,9 +1,11 @@
 // Inicializamos TaskManager
 const taskManager = new TaskManager();
 
-// Cargar y renderizar tareas guardadas en localStorage
-taskManager.load();
-taskManager.render();
+// Cargar y renderizar tareas desde el backend al iniciar la app
+document.addEventListener('DOMContentLoaded', async () => {
+  await taskManager.load();
+  taskManager.render();
+});
 
 // Selectores del DOM
 const taskForm = document.querySelector('#taskForm');
@@ -28,44 +30,44 @@ function validFormFieldInput() {
 
 // Escuchador de eventos del formulario
 if (taskForm) {
-  taskForm.addEventListener('submit', (event) => {
+  taskForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const formData = validFormFieldInput();
     if (!formData) return;
 
-    taskManager.addTask(
+    // Se envía la petición POST al backend
+    await taskManager.addTask(
       formData.titulo,
       formData.descripcion,
       formData.fecha
     );
 
-    taskManager.save();
     taskManager.render();
     taskForm.reset();
   });
 }
 
-// Escuchador de eventos para Eliminar y Marcar como Hecha (DONE)
+// Escuchador de eventos para Eliminar y Marcar como Hecha 
 if (tasksList) {
-  tasksList.addEventListener('change', (event) => {
-    //  Marcar / Desmarcar como hecho
+  // Marcar / Desmarcar como hecho
+  tasksList.addEventListener('change', async (event) => {
     if (event.target.classList.contains('mark-done-checkbox')) {
       const parentTask = event.target.closest('[data-task-id]');
-      
+
       if (parentTask) {
         const taskId = Number(parentTask.dataset.taskId);
-        const newStatus = event.target.checked ? 'Cumplida' : 'Pendiente';
-        
-        // Actualiza solo la tarea seleccionada sin alterar las demás
-        taskManager.updateTaskStatus(taskId, newStatus);
-        taskManager.save();
+        const newStatus = event.target.checked ? 'Completada' : 'Pendiente';
+
+        // Actualización vía PUT al backend
+        await taskManager.updateTaskStatus(taskId, newStatus);
         taskManager.render();
       }
     }
   });
 
-  tasksList.addEventListener('click', (event) => {
+  // Eliminar tarea
+  tasksList.addEventListener('click', async (event) => {
     const deleteButton = event.target.closest('.delete-button');
 
     if (deleteButton) {
@@ -74,8 +76,8 @@ if (tasksList) {
       if (parentTask) {
         const taskId = Number(parentTask.dataset.taskId);
 
-        taskManager.deleteTask(taskId);
-        taskManager.save();
+        // Eliminación vía DELETE al backend
+        await taskManager.deleteTask(taskId);
         taskManager.render();
       }
     }

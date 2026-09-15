@@ -1,75 +1,116 @@
 class TaskManager {
-  constructor(currentId = 0) {
+  constructor() {
     this.tasks = [];
-    this.currentId = currentId;
   }
 
-  addTask(name, description, dueDate) {
-    this.currentId++;
+  // 1. Cargar tareas desde el Backend (GET)
+  async load() {
+    try {
+      const response = await fetch('http://localhost:8080/api/tasks');
+      if (response.ok) {
+        this.tasks = await response.json();
+      }
+    } catch (error) {
+      console.error('Error al cargar tareas:', error);
+    }
+  }
 
-    this.tasks.push({
-      id: this.currentId,
+  // 2. Guardar una nueva tarea en la BD (POST)
+  async addTask(name, description, dueDate, status = 'Pendiente') {
+    const newTask = {
       name: name,
       description: description,
       dueDate: dueDate,
-      status: 'Pendiente'
-    });
+      status: status
+    };
+
+    try {
+      const response = await fetch('http://localhost:8080/api/tasks', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newTask)
+      });
+
+      if (response.ok) {
+        await this.load(); // Recarga las tareas desde la BD
+      }
+    } catch (error) {
+      console.error('Error al guardar la tarea:', error);
+    }
   }
 
+  // Obtener tarea localmente por ID
   getTaskById(taskId) {
     return this.tasks.find(task => task.id === taskId);
   }
 
-  updateTaskStatus(taskId, status) {
+  // 3. Actualizar estado de una tarea (PUT)
+  async updateTaskStatus(taskId, status) {
     const task = this.getTaskById(taskId);
-    if (task) {
-      task.status = status;
+    if (!task) return;
+
+    const updatedTask = {
+      ...task,
+      status: status
+    };
+
+    try {
+      const response = await fetch(`http://localhost:8080/api/tasks/${taskId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedTask)
+      });
+
+      if (response.ok) {
+        await this.load();
+      }
+    } catch (error) {
+      console.error('Error al actualizar la tarea:', error);
     }
   }
 
-  deleteTask(taskId) {
-    this.tasks = this.tasks.filter(task => task.id !== taskId);
-  }
+  // 4. Eliminar tarea de la BD (DELETE)
+  async deleteTask(taskId) {
+    try {
+      const response = await fetch(`http://localhost:8080/api/tasks/${taskId}`, {
+        method: 'DELETE'
+      });
 
-  save() {
-    const tasksJson = JSON.stringify(this.tasks);
-    localStorage.setItem('tasks', tasksJson);
-
-    const currentId = String(this.currentId);
-    localStorage.setItem('currentId', currentId);
-  }
-
-  load() {
-    const tasksJson = localStorage.getItem('tasks');
-
-    if (tasksJson) {
-      this.tasks = JSON.parse(tasksJson);
+      if (response.ok) {
+        await this.load();
+      }
+    } catch (error) {
+      console.error('Error al eliminar la tarea:', error);
     }
-    const currentId = localStorage.getItem('currentId');
-
-          
-      if (currentId) {
-        this.currentId = Number(currentId);
-     }
   }
 
+  // Actualizar el contador dinámico de la interfaz
   updateCounter() {
     const counterElement = document.querySelector('#taskCounter');
     if (!counterElement) return;
 
-    // Filtra las tareas que no están completadas
-    const pendingTasks = this.tasks.filter(task => task.status !== 'Cumplida');
+    // Filtra las tareas que no están completadas 
+    const pendingTasks = this.tasks.filter(
+      task => task.status !== 'Completada' && task.status !== 'Cumplida'
+    );
     const count = pendingTasks.length;
 
     if (count === 0) {
-      counterElement.className = 'badge bg-success-subtle text-success border border-success-subtle';
-      counterElement.innerHTML = '<i class="bi bi-check-circle-fill me-1"></i>¡Sin tareas pendientes!';
+      counterElement.className =
+        'badge bg-success-subtle text-success border border-success-subtle';
+      counterElement.innerHTML =
+        '<i class="bi bi-check-circle-fill me-1"></i>¡Sin tareas pendientes!';
     } else {
       counterElement.className = 'badge bg-secondary';
       counterElement.textContent = `${count} ${count === 1 ? 'pendiente' : 'pendientes'}`;
     }
   }
 
+  // Renderizar la lista en el HTML
   render() {
     const tasksList = document.querySelector('#tasksList');
     if (!tasksList) return;
@@ -77,7 +118,7 @@ class TaskManager {
     tasksList.innerHTML = '';
 
     this.tasks.forEach(task => {
-      const isDone = task.status === 'Cumplida';
+      const isDone = task.status === 'Completada' || task.status === 'Cumplida';
 
       const taskHtml = `
         <li class="list-group-item d-flex align-items-center justify-content-between py-3 ${isDone ? 'bg-dark-subtle' : ''}" data-task-id="${task.id}">
@@ -96,7 +137,6 @@ class TaskManager {
       tasksList.innerHTML += taskHtml;
     });
 
-    // Actualiza el contador dinámicamente cada vez que se renderiza
     this.updateCounter();
   }
 }
