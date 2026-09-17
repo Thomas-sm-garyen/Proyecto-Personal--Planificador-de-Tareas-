@@ -59,6 +59,12 @@ legend,
   box-shadow: 0 0 0 0.2rem rgba(187, 134, 252, 0.25);
 }
 
+/* Color del texto del placeholder */
+.form-control::placeholder {
+  color: #ffffff !important;
+  opacity: 0.8; /* Ajusta la opacidad si prefieres un blanco suave o puro (1) */
+}
+
 /* ==========================================
    4. ESTILOS DE TAREAS (TARJETAS Y ESTADOS)
    ========================================== */
